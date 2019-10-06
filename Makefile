@@ -2,6 +2,22 @@ TIMESTAMP             	:= $(shell /bin/date "+%F %T")
 NAME					:= regioncn
 VERSION					:= 1.0.0
 
+usage:
+	@echo "------------------------------------------"
+	@echo " 目标           | 功能"
+	@echo "------------------------------------------"
+	@echo " usage          | 显示本菜单"
+	@echo " fmt            | 格式化代码"
+	@echo " protoc         | 编译protobuf文件"
+	@echo " build-linux    | 构建 (linux-amd64)"
+	@echo " build-darwin   | 构建 (darwin-amd64)"
+	@echo " build-windows  | 构建 (windows-amd64)"
+	@echo " build-all      | 构建以上三者"
+	@echo " clean          | 清理构建产物"
+	@echo " release        | 发布"
+	@echo " github         | 将代码推送到Github"
+	@echo "------------------------------------------"
+
 clean:
 	rm -rf $(CURDIR)/bin/regioncn-*
 	docker image prune -f
@@ -28,4 +44,9 @@ release: build-linux
 	docker image push quay.io/yingzhuo/$(NAME):latest
 	docker logout quay.io &> /dev/null
 
-.PHONY: clean fmt build-linux build-darwin build-linux build-all release
+github: clean fmt
+	git add .
+	git commit -m "$(TIMESTAMP)"
+	git push
+
+.PHONY: usage clean fmt build-linux build-darwin build-linux build-all release github
