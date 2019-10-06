@@ -25,13 +25,16 @@ clean:
 fmt:
 	go fmt $(CURDIR)/...
 
-build-linux:
+protoc:
+	protoc -I=$(CURDIR)/protobuf/ --go_out=$(CURDIR)/protobuf/ $(CURDIR)/protobuf/regioncn.proto
+
+build-linux: protoc
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o $(CURDIR)/bin/$(NAME)-linux-amd64-$(VERSION)
 
-build-darwin:
+build-darwin: protoc
 	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o $(CURDIR)/bin/$(NAME)-darwin-amd64-$(VERSION)
 
-build-windows:
+build-windows: protoc
 	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o $(CURDIR)/bin/$(NAME)-windows-amd64-$(VERSION).exe
 
 build-all: build-linux build-darwin build-windows
@@ -44,9 +47,9 @@ release: build-linux
 	docker image push quay.io/yingzhuo/$(NAME):latest
 	docker logout quay.io &> /dev/null
 
-github: clean fmt
+github: clean fmt protoc
 	git add .
 	git commit -m "$(TIMESTAMP)"
 	git push
 
-.PHONY: usage clean fmt build-linux build-darwin build-linux build-all release github
+.PHONY: usage clean fmt protoc build-linux build-darwin build-linux build-all release github

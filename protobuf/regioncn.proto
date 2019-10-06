@@ -1,0 +1,17 @@
+syntax = "proto3";
+package regioncn;
+
+option go_package = "protobuf";
+
+message Model {
+    int64 id = 1;
+    string code = 2;
+    string name = 3;
+    string shortName = 4;
+    double lat = 5;
+    double lng = 6;
+}
+
+message Models {
+    repeated Model list = 1;
+}

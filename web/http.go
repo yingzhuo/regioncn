@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"region-cn/cnf"
 	"region-cn/dao"
+	"strings"
 )
 
 func StartHttpServer(db *sql.DB, config *cnf.Config) {
@@ -15,25 +16,45 @@ func StartHttpServer(db *sql.DB, config *cnf.Config) {
 
 	http.HandleFunc("/province", func(writer http.ResponseWriter, request *http.Request) {
 		xs := dao.FindAllProvinces(db)
-		writeJson(xs, writer, config.IndentJson)
+
+		if strings.EqualFold(cnf.Json, config.ResponseType) {
+			writeJson(xs, writer, config.IndentJson)
+		} else {
+			writeProtobuf(mapProvince(xs), writer)
+		}
 	})
 
 	http.HandleFunc("/city", func(writer http.ResponseWriter, request *http.Request) {
 		provinceCode := request.FormValue("provinceCode")
 		xs := dao.FindCityByProvinceCode(db, provinceCode)
-		writeJson(xs, writer, config.IndentJson)
+
+		if strings.EqualFold(cnf.Json, config.ResponseType) {
+			writeJson(xs, writer, config.IndentJson)
+		} else {
+			writeProtobuf(mapCity(xs), writer)
+		}
 	})
 
 	http.HandleFunc("/area", func(writer http.ResponseWriter, request *http.Request) {
 		cityCode := request.FormValue("cityCode")
 		xs := dao.FindAreaByCityCode(db, cityCode)
-		writeJson(xs, writer, config.IndentJson)
+
+		if strings.EqualFold(cnf.Json, config.ResponseType) {
+			writeJson(xs, writer, config.IndentJson)
+		} else {
+			writeProtobuf(mapArea(xs), writer)
+		}
 	})
 
 	http.HandleFunc("/street", func(writer http.ResponseWriter, request *http.Request) {
 		areaCode := request.FormValue("areaCode")
 		xs := dao.FindStreetByAreaCode(db, areaCode)
-		writeJson(xs, writer, config.IndentJson)
+
+		if strings.EqualFold(cnf.Json, config.ResponseType) {
+			writeJson(xs, writer, config.IndentJson)
+		} else {
+			writeProtobuf(mapStreet(xs), writer)
+		}
 	})
 
 	// start

@@ -53,6 +53,7 @@ func init() {
 	cmd.StringVar(&config.MySqlUsername, "mysql-username", "root", "mysql username")
 	cmd.StringVar(&config.MySqlPassword, "mysql-password", "", "mysql password")
 	cmd.StringVar(&config.MySqlDatabase, "mysql-database", "region_cn", "mysql password")
+	cmd.StringVar(&config.ResponseType, "response-type", cnf.Protobuf, "mysql password")
 	cmd.BoolVar(&config.IndentJson, "indent-json", false, "intent json")
 	cmd.BoolVar(&config.Version, "version", false, "show version")
 	_ = cmd.Parse(os.Args[1:])
@@ -75,6 +76,7 @@ func init() {
 	logrus.Debugf("mysql username = %v", config.MySqlUsername)
 	logrus.Debugf("mysql password = %v", config.MySqlPassword)
 	logrus.Debugf("mysql database = %v", config.MySqlDatabase)
+	logrus.Debugf("response type  = %v", config.ResponseType)
 
 }
 

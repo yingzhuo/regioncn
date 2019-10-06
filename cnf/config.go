@@ -11,6 +11,7 @@ type Config struct {
 	MySqlUsername string
 	MySqlPassword string
 	MySqlDatabase string
+	ResponseType  string
 	IndentJson    bool
 	Version       bool
 }
