@@ -1,4 +1,4 @@
-FROM busybox:1.28.4
+FROM quay.io/yingzhuo/my-alpine:3.10.2
 
 MAINTAINER 应卓 yingzhor@gmail.com
 
@@ -6,6 +6,11 @@ ARG VERSION
 
 COPY ./regioncn-linux-amd64-$VERSION /bin/regioncn
 
-ENV REGIONCN_VERSION=$VERSION
+COPY docker-entrypoint.sh /bin/docker-entrypoint
 
-CMD ["regioncn"]
+RUN chmod +x /bin/docker-entrypoint
+
+ENV \
+    REGIONCN_VERSION=$VERSION
+
+CMD ["docker-entrypoint"]

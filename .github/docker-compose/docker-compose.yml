@@ -15,6 +15,9 @@ services:
     links:
       - db:db
     command:
-      - "regioncn"
+      - "docker-entrypoint"
       - "--response-type=protobuf"
       - "--mysql-host=db"
+      - "--mysql-port=3306"
+    environment:
+      - "WAIT_FOR_READINESS=db:3306"
