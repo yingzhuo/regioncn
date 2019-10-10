@@ -1,4 +1,4 @@
-FROM quay.io/yingzhuo/my-alpine:3.10.2
+FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/alpine:3.10
 
 MAINTAINER 应卓 yingzhor@gmail.com
 
