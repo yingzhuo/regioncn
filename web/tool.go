@@ -40,70 +40,19 @@ func writeProtobuf(model proto.Message, w http.ResponseWriter) {
 
 }
 
-func mapProvince(xs []*model.Province) *protobuf.Models {
+func mapModels(xs []model.Model) *protobuf.Models {
 	var coll = &protobuf.Models{}
 
 	for _, x := range xs {
-		m := &protobuf.Model{}
-		m.Id = x.GetId()
-		m.Code = x.GetCode()
-		m.Name = x.GetName()
-		m.ShortName = x.GetShortName()
-		m.Lat = x.GetLat()
-		m.Lng = x.GetLng()
+		m := &protobuf.Model{
+			Id:        x.GetId(),
+			Code:      x.GetCode(),
+			Name:      x.GetName(),
+			ShortName: x.GetShortName(),
+			Lat:       x.GetLat(),
+			Lng:       x.GetLng(),
+		}
 		coll.List = append(coll.List, m)
 	}
-
-	return coll
-}
-
-func mapCity(xs []*model.City) *protobuf.Models {
-	var coll = &protobuf.Models{}
-
-	for _, x := range xs {
-		m := &protobuf.Model{}
-		m.Id = x.GetId()
-		m.Code = x.GetCode()
-		m.Name = x.GetName()
-		m.ShortName = x.GetShortName()
-		m.Lat = x.GetLat()
-		m.Lng = x.GetLng()
-		coll.List = append(coll.List, m)
-	}
-
-	return coll
-}
-
-func mapArea(xs []*model.Area) *protobuf.Models {
-	var coll = &protobuf.Models{}
-
-	for _, x := range xs {
-		m := &protobuf.Model{}
-		m.Id = x.GetId()
-		m.Code = x.GetCode()
-		m.Name = x.GetName()
-		m.ShortName = x.GetShortName()
-		m.Lat = x.GetLat()
-		m.Lng = x.GetLng()
-		coll.List = append(coll.List, m)
-	}
-
-	return coll
-}
-
-func mapStreet(xs []*model.Street) *protobuf.Models {
-	var coll = &protobuf.Models{}
-
-	for _, x := range xs {
-		m := &protobuf.Model{}
-		m.Id = x.GetId()
-		m.Code = x.GetCode()
-		m.Name = x.GetName()
-		m.ShortName = x.GetShortName()
-		m.Lat = x.GetLat()
-		m.Lng = x.GetLng()
-		coll.List = append(coll.List, m)
-	}
-
 	return coll
 }

@@ -68,6 +68,7 @@ func init() {
 	// 设置时区
 	_ = os.Setenv("TZ", config.Timezone)
 
+	logrus.Debugf("pid            = %v", os.Getpid())
 	logrus.Debugf("timezone       = %v", config.Timezone)
 	logrus.Debugf("web host       = %v", config.HttpHost)
 	logrus.Debugf("web port       = %v", config.HttpPort)
@@ -77,7 +78,6 @@ func init() {
 	logrus.Debugf("mysql password = %v", config.MySqlPassword)
 	logrus.Debugf("mysql database = %v", config.MySqlDatabase)
 	logrus.Debugf("response type  = %v", config.ResponseType)
-
 }
 
 func NewDB() *sql.DB {

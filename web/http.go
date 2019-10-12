@@ -20,7 +20,7 @@ func StartHttpServer(db *sql.DB, config *cnf.Config) {
 		if strings.EqualFold(cnf.Json, config.ResponseType) {
 			writeJson(xs, writer, config.IndentJson)
 		} else {
-			writeProtobuf(mapProvince(xs), writer)
+			writeProtobuf(mapModels(xs), writer)
 		}
 	})
 
@@ -31,7 +31,7 @@ func StartHttpServer(db *sql.DB, config *cnf.Config) {
 		if strings.EqualFold(cnf.Json, config.ResponseType) {
 			writeJson(xs, writer, config.IndentJson)
 		} else {
-			writeProtobuf(mapCity(xs), writer)
+			writeProtobuf(mapModels(xs), writer)
 		}
 	})
 
@@ -42,7 +42,7 @@ func StartHttpServer(db *sql.DB, config *cnf.Config) {
 		if strings.EqualFold(cnf.Json, config.ResponseType) {
 			writeJson(xs, writer, config.IndentJson)
 		} else {
-			writeProtobuf(mapArea(xs), writer)
+			writeProtobuf(mapModels(xs), writer)
 		}
 	})
 
@@ -53,7 +53,7 @@ func StartHttpServer(db *sql.DB, config *cnf.Config) {
 		if strings.EqualFold(cnf.Json, config.ResponseType) {
 			writeJson(xs, writer, config.IndentJson)
 		} else {
-			writeProtobuf(mapStreet(xs), writer)
+			writeProtobuf(mapModels(xs), writer)
 		}
 	})
 

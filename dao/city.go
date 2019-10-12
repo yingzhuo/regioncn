@@ -5,9 +5,9 @@ import (
 	"region-cn/model"
 )
 
-func FindCityByProvinceCode(db *sql.DB, provinceCode string) []*model.City {
+func FindCityByProvinceCode(db *sql.DB, provinceCode string) []model.Model {
 	if provinceCode == "" {
-		return []*model.City{}
+		return []model.Model{}
 	}
 
 	ql := `SELECT city_id, city_code, city_name, short_name, lat, lng FROM t_region_city WHERE province_code = ?`
@@ -23,7 +23,7 @@ func FindCityByProvinceCode(db *sql.DB, provinceCode string) []*model.City {
 		}
 	}()
 
-	var ret []*model.City
+	var ret []model.Model
 
 	for rows.Next() {
 		c := &model.City{}

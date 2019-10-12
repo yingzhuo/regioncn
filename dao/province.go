@@ -5,7 +5,7 @@ import (
 	"region-cn/model"
 )
 
-func FindAllProvinces(db *sql.DB) []*model.Province {
+func FindAllProvinces(db *sql.DB) []model.Model {
 
 	ql := `SELECT province_id, province_code, province_name, short_name, lat, lng FROM t_region_province`
 
@@ -20,7 +20,7 @@ func FindAllProvinces(db *sql.DB) []*model.Province {
 		}
 	}()
 
-	var ret []*model.Province
+	var ret []model.Model
 
 	for rows.Next() {
 		p := &model.Province{}

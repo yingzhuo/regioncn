@@ -5,10 +5,10 @@ import (
 	"region-cn/model"
 )
 
-func FindStreetByAreaCode(db *sql.DB, areaCode string) []*model.Street {
+func FindStreetByAreaCode(db *sql.DB, areaCode string) []model.Model {
 
 	if areaCode == "" {
-		return []*model.Street{}
+		return []model.Model{}
 	}
 
 	ql := `SELECT street_id, street_code, street_name, short_name, lat, lng FROM t_region_street WHERE area_code = ?`
@@ -24,7 +24,7 @@ func FindStreetByAreaCode(db *sql.DB, areaCode string) []*model.Street {
 		}
 	}()
 
-	var ret []*model.Street
+	var ret []model.Model
 
 	for rows.Next() {
 		s := &model.Street{}
