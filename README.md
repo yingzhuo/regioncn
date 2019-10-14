@@ -1,3 +1,5 @@
 # RegionCN
 
-[![Docker Repository on Quay](https://quay.io/repository/yingzhuo/regioncn/status "Docker Repository on Quay")](https://quay.io/repository/yingzhuo/regioncn)
+```bash
+docker pull registry.cn-shanghai.aliyuncs.com/yingzhor/regioncn:1.0.0
+```

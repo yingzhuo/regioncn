@@ -2,12 +2,12 @@ version: "3.7"
 
 services:
   db:
-    image: quay.io/yingzhuo/regioncn-mysql:latest
+    image: registry.cn-shanghai.aliyuncs.com/yingzhor/regioncn-mysql:1.0.0
     container_name: "regioncn-mysql"
     restart: "always"
 
   regioncn:
-    image: quay.io/yingzhuo/regioncn:latest
+    image: registry.cn-shanghai.aliyuncs.com/yingzhor/regioncn:1.0.0
     container_name: "regioncn"
     restart: "always"
     ports:
