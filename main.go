@@ -9,22 +9,18 @@ import (
 	"os"
 	"region-cn/cnf"
 	"region-cn/web"
+	"runtime"
 )
 
 var config = &cnf.Config{}
 
 var db *sql.DB
 
-const (
-	version   = "1.0.0"
-	goVersion = "go1.13.1"
-)
-
 func main() {
 
 	if config.Version {
-		fmt.Println("Version   :", version)
-		fmt.Println("Go version:", goVersion)
+		fmt.Println("Version   :", "1.0.0")
+		fmt.Println("Go version:", runtime.Version())
 		return
 	}
 
