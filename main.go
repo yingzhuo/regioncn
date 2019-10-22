@@ -40,7 +40,7 @@ func main() {
 }
 
 func init() {
-	cmd := flag.NewFlagSet("region-cn", flag.ExitOnError)
+	cmd := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 	cmd.StringVar(&config.Timezone, "timezone", "Asia/Shanghai", "timezone")
 	cmd.StringVar(&config.HttpHost, "web-host", "0.0.0.0", "web host")
 	cmd.IntVar(&config.HttpPort, "web-port", 8080, "web port")
