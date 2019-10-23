@@ -13,7 +13,6 @@ type Config struct {
 	MySqlDatabase string
 	ResponseType  string
 	IndentJson    bool
-	Version       bool
 }
 
 func (config *Config) String() string {

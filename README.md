@@ -51,8 +51,8 @@ spec:
             - "docker-entrypoint"
             - "--mysql-host=localhost"
             - "--mysql-port=3306"
-            - "--response-type=json"
-            - "--indent-json=true"
+            - "--type=json"
+            - "--indent=true"
 ---
 apiVersion: v1
 kind: Service
@@ -96,7 +96,7 @@ services:
       - "--response-type=protobuf"
       - "--mysql-host=db"
       - "--mysql-port=3306"
-      - "--indent-json=true"
+      - "--indent=true"
     environment:
       - "WAIT_FOR_READINESS=db:3306"
 ```
