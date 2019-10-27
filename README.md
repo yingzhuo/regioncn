@@ -45,7 +45,7 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: "WAIT_FOR_READINESS"
+            - name: "WFR_MYSQL"
               value: "localhost:3306"
           command:
             - "docker-entrypoint"
@@ -98,5 +98,5 @@ services:
       - "--mysql-port=3306"
       - "--indent"
     environment:
-      - "WAIT_FOR_READINESS=db:3306"
+      - "WFR_MYSQL=db:3306"
 ```

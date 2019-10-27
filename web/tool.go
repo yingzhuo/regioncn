@@ -3,8 +3,9 @@ package web
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/golang/protobuf/proto"
 	"net/http"
+
+	"github.com/golang/protobuf/proto"
 	"region-cn/model"
 	"region-cn/protobuf"
 )

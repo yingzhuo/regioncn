@@ -4,9 +4,10 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
+	"strings"
+
 	"region-cn/cnf"
 	"region-cn/dao"
-	"strings"
 )
 
 func StartHttpServer(db *sql.DB, config *cnf.Config) {
