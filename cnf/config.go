@@ -4,7 +4,6 @@ import "encoding/json"
 
 type Config struct {
 	Timezone      string
-	HttpHost      string
 	HttpPort      int
 	MySqlHost     string
 	MySqlPort     int

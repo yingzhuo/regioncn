@@ -19,7 +19,7 @@ usage:
 	@echo "------------------------------------------"
 
 clean:
-	rm -rf $(CURDIR)/bin/regioncn-*
+	rm -rf $(CURDIR)/_bin/regioncn-*
 	docker image rm registry.cn-shanghai.aliyuncs.com/yingzhor/$(NAME):$(VERSION) &> /dev/null || true
 	docker image rm registry.cn-shanghai.aliyuncs.com/yingzhor/$(NAME):latest &> /dev/null || true
 	docker image prune -f
@@ -31,18 +31,18 @@ protoc:
 	protoc -I=$(CURDIR)/protobuf/ --go_out=$(CURDIR)/protobuf/ $(CURDIR)/protobuf/regioncn.proto
 
 build-linux: protoc
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o $(CURDIR)/bin/$(NAME)-linux-amd64-$(VERSION)
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o $(CURDIR)/_bin/$(NAME)-linux-amd64-$(VERSION)
 
 build-darwin: protoc
-	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o $(CURDIR)/bin/$(NAME)-darwin-amd64-$(VERSION)
+	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o $(CURDIR)/_bin/$(NAME)-darwin-amd64-$(VERSION)
 
 build-windows: protoc
-	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o $(CURDIR)/bin/$(NAME)-windows-amd64-$(VERSION).exe
+	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o $(CURDIR)/_bin/$(NAME)-windows-amd64-$(VERSION).exe
 
 build-all: build-linux build-darwin build-windows
 
 release: build-linux
-	docker image build -t registry.cn-shanghai.aliyuncs.com/yingzhor/$(NAME):$(VERSION) --build-arg VERSION=$(VERSION) $(CURDIR)/bin
+	docker image build -t registry.cn-shanghai.aliyuncs.com/yingzhor/$(NAME):$(VERSION) --build-arg VERSION=$(VERSION) $(CURDIR)/_bin
 	docker image tag      registry.cn-shanghai.aliyuncs.com/yingzhor/$(NAME):$(VERSION) registry.cn-shanghai.aliyuncs.com/yingzhor/$(NAME):latest
 	docker login --username=yingzhor@gmail.com --password="${ALIYUN_PASSWORD}" registry.cn-shanghai.aliyuncs.com
 	docker image push registry.cn-shanghai.aliyuncs.com/yingzhor/$(NAME):$(VERSION)

@@ -58,7 +58,7 @@ func StartHttpServer(db *sql.DB, config *cnf.Config) {
 	})
 
 	// start
-	addr := fmt.Sprintf("%v:%v", config.HttpHost, config.HttpPort)
+	addr := fmt.Sprintf("0.0.0.0:%v", config.HttpPort)
 	_ = http.ListenAndServe(addr, nil)
 
 }

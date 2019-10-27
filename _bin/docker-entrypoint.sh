@@ -1,5 +1,5 @@
 #!/bin/sh
 
-wfr -e "WAIT_FOR_READINESS" -q
+wfr -q
 
 exec /bin/regioncn "$@"

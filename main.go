@@ -34,12 +34,6 @@ func main() {
 			NoOptDefValue: "Asia/Shanghai",
 			Value:         &config.Timezone,
 		}, {
-			Name:          "host",
-			Usage:         "host of application",
-			DefValue:      "0.0.0.0",
-			NoOptDefValue: "0.0.0.0",
-			Value:         &config.HttpHost,
-		}, {
 			Name:          "port",
 			Usage:         "port of application",
 			DefValue:      "8080",
@@ -105,7 +99,6 @@ func main() {
 
 		logrus.Debugf("pid            = %v", os.Getpid())
 		logrus.Debugf("timezone       = %v", config.Timezone)
-		logrus.Debugf("web host       = %v", config.HttpHost)
 		logrus.Debugf("web port       = %v", config.HttpPort)
 		logrus.Debugf("mysql host     = %v", config.MySqlHost)
 		logrus.Debugf("mysql port     = %v", config.MySqlPort)
