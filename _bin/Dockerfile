@@ -8,10 +8,9 @@ COPY ./regioncn-linux-amd64-$VERSION /bin/regioncn
 
 COPY docker-entrypoint.sh /bin/docker-entrypoint
 
-RUN chmod +x /bin/regioncn
+RUN chmod +x /bin/regioncn /bin/docker-entrypoint
 
 ENV \
-    PATH=$PATH:/usr/local/bin \
     REGIONCN_VERSION=$VERSION
 
 CMD ["docker-entrypoint"]
