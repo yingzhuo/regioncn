@@ -18,7 +18,7 @@ func StartHttpServer(db *sql.DB, config *cnf.Config) {
 		xs := dao.FindAllProvinces(db)
 
 		if strings.EqualFold(cnf.Json, config.ResponseType) {
-			writeJson(xs, writer, config.IndentJson)
+			writeJson(xs, writer, config.Indent)
 		} else {
 			writeProtobuf(mapModels(xs), writer)
 		}
@@ -29,7 +29,7 @@ func StartHttpServer(db *sql.DB, config *cnf.Config) {
 		xs := dao.FindCityByProvinceCode(db, provinceCode)
 
 		if strings.EqualFold(cnf.Json, config.ResponseType) {
-			writeJson(xs, writer, config.IndentJson)
+			writeJson(xs, writer, config.Indent)
 		} else {
 			writeProtobuf(mapModels(xs), writer)
 		}
@@ -40,7 +40,7 @@ func StartHttpServer(db *sql.DB, config *cnf.Config) {
 		xs := dao.FindAreaByCityCode(db, cityCode)
 
 		if strings.EqualFold(cnf.Json, config.ResponseType) {
-			writeJson(xs, writer, config.IndentJson)
+			writeJson(xs, writer, config.Indent)
 		} else {
 			writeProtobuf(mapModels(xs), writer)
 		}
@@ -51,7 +51,7 @@ func StartHttpServer(db *sql.DB, config *cnf.Config) {
 		xs := dao.FindStreetByAreaCode(db, areaCode)
 
 		if strings.EqualFold(cnf.Json, config.ResponseType) {
-			writeJson(xs, writer, config.IndentJson)
+			writeJson(xs, writer, config.Indent)
 		} else {
 			writeProtobuf(mapModels(xs), writer)
 		}

@@ -4,12 +4,12 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+	"strings"
 
 	"region-cn/cnf"
 	"region-cn/web"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/sirupsen/logrus"
 	"github.com/subchen/go-cli"
 )
 
@@ -85,27 +85,31 @@ func main() {
 		},
 	}
 
+	app.OnActionPanic = func(context *cli.Context, e error) {
+		msg := e.Error()
+		if !strings.HasSuffix(msg, "\n") {
+			msg += "\n"
+		}
+		_, _ = os.Stderr.WriteString(msg)
+		os.Exit(1)
+	}
+
 	app.Action = func(context *cli.Context) {
-
-		logrus.SetOutput(os.Stdout)
-		logrus.SetLevel(logrus.DebugLevel)
-		logrus.SetFormatter(&logrus.TextFormatter{
-			DisableColors: true,
-			FullTimestamp: false,
-		})
-
 		// 设置时区
 		_ = os.Setenv("TZ", config.Timezone)
 
-		logrus.Debugf("pid            = %v", os.Getpid())
-		logrus.Debugf("timezone       = %v", config.Timezone)
-		logrus.Debugf("web port       = %v", config.HttpPort)
-		logrus.Debugf("mysql host     = %v", config.MySqlHost)
-		logrus.Debugf("mysql port     = %v", config.MySqlPort)
-		logrus.Debugf("mysql username = %v", config.MySqlUsername)
-		logrus.Debugf("mysql password = %v", config.MySqlPassword)
-		logrus.Debugf("mysql database = %v", config.MySqlDatabase)
-		logrus.Debugf("response type  = %v", config.ResponseType)
+		fmt.Printf("pid            = %v\n", os.Getpid())
+		fmt.Printf("timezone       = %v\n", config.Timezone)
+		fmt.Printf("web port       = %v\n", config.HttpPort)
+		fmt.Printf("mysql host     = %v\n", config.MySqlHost)
+		fmt.Printf("mysql port     = %v\n", config.MySqlPort)
+		fmt.Printf("mysql username = %v\n", config.MySqlUsername)
+		fmt.Printf("mysql password = %v\n", config.MySqlPassword)
+		fmt.Printf("mysql database = %v\n", config.MySqlDatabase)
+		fmt.Printf("response type  = %v\n", config.ResponseType)
+		if strings.EqualFold(config.ResponseType, "json") {
+			fmt.Printf("indent json    = %v", config.Indent)
+		}
 
 		db = NewDB()
 		defer func() {
@@ -115,10 +119,8 @@ func main() {
 		}()
 
 		if err := db.Ping(); err != nil {
-			logrus.Error("db connection is NOT reachable")
-			os.Exit(1)
+			panic(err)
 		}
-
 		web.StartHttpServer(db, config)
 	}
 
@@ -134,8 +136,6 @@ func NewDB() *sql.DB {
 		config.MySqlPort,
 		config.MySqlDatabase,
 	)
-
-	logrus.Debugf("dsn = %v", dsn)
 
 	if database, err := sql.Open("mysql", dsn); err != nil {
 		panic(err)

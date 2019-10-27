@@ -11,7 +11,7 @@ type Config struct {
 	MySqlPassword string
 	MySqlDatabase string
 	ResponseType  string
-	IndentJson    bool
+	Indent        bool
 }
 
 func (config *Config) String() string {

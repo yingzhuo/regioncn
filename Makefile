@@ -9,10 +9,7 @@ usage:
 	@echo " usage          | 显示本菜单"
 	@echo " fmt            | 格式化代码"
 	@echo " protoc         | 编译protobuf文件"
-	@echo " build-linux    | 构建 (linux-amd64)"
-	@echo " build-darwin   | 构建 (darwin-amd64)"
-	@echo " build-windows  | 构建 (windows-amd64)"
-	@echo " build-all      | 构建以上三者"
+	@echo " build          | 构建以上三者"
 	@echo " clean          | 清理构建产物"
 	@echo " release        | 发布"
 	@echo " github         | 将代码推送到Github"
@@ -30,18 +27,10 @@ fmt:
 protoc:
 	protoc -I=$(CURDIR)/protobuf/ --go_out=$(CURDIR)/protobuf/ $(CURDIR)/protobuf/regioncn.proto
 
-build-linux: protoc
+build: protoc
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o $(CURDIR)/_bin/$(NAME)-linux-amd64-$(VERSION)
 
-build-darwin: protoc
-	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o $(CURDIR)/_bin/$(NAME)-darwin-amd64-$(VERSION)
-
-build-windows: protoc
-	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o $(CURDIR)/_bin/$(NAME)-windows-amd64-$(VERSION).exe
-
-build-all: build-linux build-darwin build-windows
-
-release: build-linux
+release: build
 	docker image build -t registry.cn-shanghai.aliyuncs.com/yingzhor/$(NAME):$(VERSION) --build-arg VERSION=$(VERSION) $(CURDIR)/_bin
 	docker image tag      registry.cn-shanghai.aliyuncs.com/yingzhor/$(NAME):$(VERSION) registry.cn-shanghai.aliyuncs.com/yingzhor/$(NAME):latest
 	docker login --username=yingzhor@gmail.com --password="${ALIYUN_PASSWORD}" registry.cn-shanghai.aliyuncs.com
