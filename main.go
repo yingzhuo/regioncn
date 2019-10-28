@@ -17,6 +17,15 @@ var config = &cnf.Config{}
 
 var db *sql.DB
 
+// build info
+var (
+	BuildVersion   string
+	BuildGitBranch string
+	BuildGitRev    string
+	BuildGitCommit string
+	BuildDate      string
+)
+
 func main() {
 
 	app := cli.NewApp()
@@ -24,64 +33,61 @@ func main() {
 	app.Usage = "a http server of id-generator"
 	app.UsageText = "[options]"
 	app.Authors = "应卓 <yingzhor@gmail.com>"
-	app.Version = "1.0.0"
-	app.BuildInfo = &cli.BuildInfo{}
+	app.Version = BuildVersion
+	app.BuildInfo = &cli.BuildInfo{
+		GitBranch:   BuildGitBranch,
+		GitCommit:   BuildGitCommit,
+		GitRevCount: BuildGitRev,
+		Timestamp:   BuildDate,
+	}
+
 	app.Flags = []*cli.Flag{
 		{
-			Name:          "tz, timezone",
-			Usage:         "timezone of application",
-			DefValue:      "Asia/Shanghai",
-			NoOptDefValue: "Asia/Shanghai",
-			Value:         &config.Timezone,
+			Name:     "tz, timezone",
+			Usage:    "timezone of application",
+			DefValue: "Asia/Shanghai",
+			Value:    &config.Timezone,
 		}, {
-			Name:          "port",
-			Usage:         "port of application",
-			DefValue:      "8080",
-			NoOptDefValue: "8080",
-			Value:         &config.HttpPort,
+			Name:     "port",
+			Usage:    "port of application",
+			DefValue: "8080",
+			Value:    &config.HttpPort,
 		}, {
-			Name:          "mysql-host",
-			Usage:         "host of msql",
-			DefValue:      "local",
-			NoOptDefValue: "local",
-			Value:         &config.MySqlHost,
+			Name:     "mysql-host",
+			Usage:    "host of msql",
+			DefValue: "local",
+			Value:    &config.MySqlHost,
 		}, {
-			Name:          "mysql-port",
-			Usage:         "port of msql",
-			DefValue:      "3306",
-			NoOptDefValue: "3306",
-			Value:         &config.MySqlPort,
+			Name:     "mysql-port",
+			Usage:    "port of msql",
+			DefValue: "3306",
+			Value:    &config.MySqlPort,
 		}, {
-			Name:          "mysql-database",
-			Usage:         "database of msql",
-			DefValue:      "regioncn",
-			NoOptDefValue: "regioncn",
-			Value:         &config.MySqlDatabase,
+			Name:     "mysql-database",
+			Usage:    "database of msql",
+			DefValue: "regioncn",
+			Value:    &config.MySqlDatabase,
 		}, {
-			Name:          "mysql-username",
-			Usage:         "username of msql",
-			DefValue:      "regioncn",
-			NoOptDefValue: "regioncn",
-			Value:         &config.MySqlUsername,
+			Name:     "mysql-username",
+			Usage:    "username of msql",
+			DefValue: "regioncn",
+			Value:    &config.MySqlUsername,
 		}, {
-			Name:          "mysql-password",
-			Usage:         "password of msql",
-			DefValue:      "regioncn",
-			NoOptDefValue: "regioncn",
-			Value:         &config.MySqlPassword,
+			Name:     "mysql-password",
+			Usage:    "password of msql",
+			DefValue: "regioncn",
+			Value:    &config.MySqlPassword,
 		}, {
-			Name:          "type",
-			Usage:         "response type of http",
-			DefValue:      "protobuf",
-			NoOptDefValue: "protobuf",
-			Value:         &config.ResponseType,
+			Name:     "type",
+			Usage:    "response type of http",
+			DefValue: "protobuf",
+			Value:    &config.ResponseType,
 		}, {
-			Name:          "i, indent",
-			Usage:         "output indented json",
-			DefValue:      "false",
-			NoOptDefValue: "false",
-			Hidden:        true,
-			Value:         &config.ResponseType,
+			Name:     "i, indent",
+			Usage:    "output indented json",
+			DefValue: "false",
+			Hidden:   true,
+			Value:    &config.ResponseType,
 		},
 	}
 
