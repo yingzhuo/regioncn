@@ -83,11 +83,12 @@ func main() {
 			DefValue: "protobuf",
 			Value:    &config.ResponseType,
 		}, {
-			Name:     "i, indent",
-			Usage:    "output indented json",
-			DefValue: "false",
-			Hidden:   true,
-			Value:    &config.ResponseType,
+			Name:          "i, indent",
+			Usage:         "output indented json",
+			DefValue:      "false",
+			NoOptDefValue: "false",
+			IsBool:        true,
+			Value:         &config.ResponseType,
 		},
 	}
 
