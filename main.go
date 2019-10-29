@@ -84,16 +84,15 @@ https://github.com/yingzhuo/regioncn-java-client`
 			Value:    &config.MySqlPassword,
 		}, {
 			Name:     "type",
-			Usage:    "response type of http",
+			Usage:    "response type of http (protobuf | json)",
 			DefValue: "protobuf",
 			Value:    &config.ResponseType,
 		}, {
-			Name:          "i, indent",
-			Usage:         "output indented json",
-			DefValue:      "false",
-			NoOptDefValue: "false",
-			IsBool:        true,
-			Value:         &config.ResponseType,
+			Name:     "i, indent",
+			Usage:    "output indented json",
+			DefValue: "false",
+			IsBool:   true,
+			Value:    &config.Indent,
 		},
 	}
 
@@ -120,7 +119,7 @@ https://github.com/yingzhuo/regioncn-java-client`
 		fmt.Printf("mysql database = %v\n", config.MySqlDatabase)
 		fmt.Printf("response type  = %v\n", config.ResponseType)
 		if strings.EqualFold(config.ResponseType, "json") {
-			fmt.Printf("indent json    = %v", config.Indent)
+			fmt.Printf("indent json    = %v\n", config.Indent)
 		}
 
 		db = NewDB()
