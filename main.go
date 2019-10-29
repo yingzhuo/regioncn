@@ -30,7 +30,7 @@ func main() {
 
 	app := cli.NewApp()
 	app.Name = "regioncn"
-	app.Usage = "a http server of id-generator"
+	app.Usage = "a http server of region info"
 	app.UsageText = "[options]"
 	app.Authors = "应卓 <yingzhor@gmail.com>"
 	app.Version = BuildVersion
@@ -40,6 +40,11 @@ func main() {
 		GitRevCount: BuildGitRev,
 		Timestamp:   BuildDate,
 	}
+
+	app.SeeAlso = `https://github.com/yingzhuo/regioncn
+https://github.com/yingzhuo/regioncn-mysql
+https://github.com/yingzhuo/regioncn-golang-client
+https://github.com/yingzhuo/regioncn-java-client`
 
 	app.Flags = []*cli.Flag{
 		{
