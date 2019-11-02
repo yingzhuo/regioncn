@@ -1,4 +1,4 @@
-FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/busybox:1.28.4-wfr
+FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/busybox:1.28.4-docktool
 
 MAINTAINER 应卓 yingzhor@gmail.com
 
@@ -10,7 +10,6 @@ COPY docker-entrypoint.sh /bin/docker-entrypoint
 
 RUN chmod +x /bin/regioncn /bin/docker-entrypoint
 
-ENV \
-    REGIONCN_VERSION=$VERSION
+ENV REGIONCN_VERSION=$VERSION
 
 CMD ["docker-entrypoint"]
