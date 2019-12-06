@@ -1,5 +1,5 @@
 #!/bin/sh
 
-docktool wait
+docktool wait -e="WAIT_"
 
 exec /bin/regioncn "$@"

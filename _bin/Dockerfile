@@ -1,4 +1,4 @@
-FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/busybox
+FROM registry.cn-shanghai.aliyuncs.com/yingzhuo/busybox:1.31.1
 
 MAINTAINER 应卓 yingzhor@gmail.com
 

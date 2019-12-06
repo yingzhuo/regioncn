@@ -10,7 +10,7 @@ import (
 	"region-cn/web"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/subchen/go-cli"
+	"github.com/yingzhuo/go-cli/v2"
 )
 
 var config = &cnf.Config{}
@@ -39,6 +39,7 @@ func main() {
 		GitCommit:   BuildGitCommit,
 		GitRevCount: BuildGitRev,
 		Timestamp:   BuildDate,
+		BuiltBy:     "make",
 	}
 
 	app.SeeAlso = `https://github.com/yingzhuo/regioncn
@@ -50,49 +51,59 @@ https://github.com/yingzhuo/regioncn-java-client`
 		{
 			Name:     "tz, timezone",
 			Usage:    "timezone of application",
+			EnvVar:   "REGIONCN_TZ",
 			DefValue: "Asia/Shanghai",
 			Value:    &config.Timezone,
 		}, {
 			Name:     "port",
 			Usage:    "port of application",
+			EnvVar:   "REGIONCN_PORT",
 			DefValue: "8080",
 			Value:    &config.HttpPort,
 		}, {
 			Name:     "mysql-host",
 			Usage:    "host of msql",
+			EnvVar:   "REGIONCN_MYSQL_HOST",
 			DefValue: "local",
 			Value:    &config.MySqlHost,
 		}, {
 			Name:     "mysql-port",
 			Usage:    "port of msql",
+			EnvVar:   "REGIONCN_MYSQL_PORT",
 			DefValue: "3306",
 			Value:    &config.MySqlPort,
 		}, {
 			Name:     "mysql-database",
 			Usage:    "database of msql",
+			EnvVar:   "REGIONCN_MYSQL_DATABASE",
 			DefValue: "regioncn",
 			Value:    &config.MySqlDatabase,
 		}, {
 			Name:     "mysql-username",
 			Usage:    "username of msql",
+			EnvVar:   "REGIONCN_MYSQL_USERNAME",
 			DefValue: "regioncn",
 			Value:    &config.MySqlUsername,
 		}, {
 			Name:     "mysql-password",
 			Usage:    "password of msql",
+			EnvVar:   "REGIONCN_MYSQL_PASSWORD",
 			DefValue: "regioncn",
 			Value:    &config.MySqlPassword,
 		}, {
 			Name:     "type",
 			Usage:    "response type of http (protobuf | json)",
+			EnvVar:   "REGIONCN_TYPE",
 			DefValue: "protobuf",
 			Value:    &config.ResponseType,
 		}, {
-			Name:     "i, indent",
-			Usage:    "output indented json",
-			DefValue: "false",
-			IsBool:   true,
-			Value:    &config.Indent,
+			Name:          "i, indent",
+			Usage:         "output indented json",
+			EnvVar:        "REGIONCN_INDENT",
+			DefValue:      "true",
+			NoOptDefValue: "true",
+			IsBool:        true,
+			Value:         &config.Indent,
 		},
 	}
 
@@ -103,6 +114,10 @@ https://github.com/yingzhuo/regioncn-java-client`
 		}
 		_, _ = os.Stderr.WriteString(msg)
 		os.Exit(1)
+	}
+
+	app.OnAppInitialized = func(_ *cli.Context) {
+		// nop
 	}
 
 	app.Action = func(context *cli.Context) {
@@ -153,4 +168,5 @@ func NewDB() *sql.DB {
 	} else {
 		return database
 	}
+
 }
