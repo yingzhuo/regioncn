@@ -6,11 +6,10 @@ import (
 	"os"
 	"strings"
 
-	"region-cn/cnf"
-	"region-cn/web"
-
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/yingzhuo/go-cli/v2"
+	"region-cn/cnf"
+	"region-cn/web"
 )
 
 var config = &cnf.Config{}
